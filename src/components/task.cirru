@@ -10,11 +10,24 @@ var
   :displayName :app-task
 
   :propTypes $ {}
-    :task $ React.PropTypes.instanceOf Immutable.List
+    :task $ React.PropTypes.instanceOf Immutable.Map
 
   :render $ \ ()
+    var task this.props.task
     div ({} (:className :app-task))
-      ... this.props.task
-        map $ \ (field index)
-          div ({} (:className :app-field) (:key index)) field
-        toArray
+      div ({} (:className :content))
+        task.get :Content
+      div ({} (:className :priority))
+        task.get :Priority
+      div ({} (:className :complete))
+        task.get :Complete
+      div ({} (:className :create_time))
+        task.get :Create_time
+      div ({} (:className :due_date))
+        task.get :Due_Date
+      div ({} (:className :executor))
+        task.get :Executor
+      div ({} (:className :group))
+        task.get :Group
+      div ({} (:className :stage))
+        task.get :Stage

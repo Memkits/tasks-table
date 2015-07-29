@@ -9,7 +9,7 @@ var
 = exports.in $ new Pipeline
 
 var
-  Component $ React.createFactory $ require :./components/table
+  Table $ React.createFactory $ require :./components/table
   div $ React.createFactory :div
 
 var pageComponent $ React.createClass $ {}
@@ -17,6 +17,15 @@ var pageComponent $ React.createClass $ {}
 
   :getInitialState $ \ ()
     {} (:tasks schema.store)
+      :labels $ Immutable.fromJS $ []
+        , :Content
+        , :Priority
+        , :Complete
+        , :Create_time
+        , :Due_Date
+        , :Executor
+        , :Group
+        , :Stage
 
   :componentDidMount $ \ ()
     exports.in.for $ \\ (store)
@@ -25,15 +34,14 @@ var pageComponent $ React.createClass $ {}
       get :data/web.json
       then $ \\ (resp)
         var allData $ Immutable.fromJS $ JSON.parse resp.response
-        var obj $ allData.get 0
         this.setState $ {}
-          :tasks (obj.get :data)
+          :tasks allData
 
   :render $ \ ()
     console.log (this.state.tasks.toJS)
 
     div ({} (:className :app-page))
-      Component $ {} (:tasks this.state.tasks)
+      Table $ {} (:tasks this.state.tasks) (:labels this.state.labels)
 
 var Page $ React.createFactory pageComponent
 

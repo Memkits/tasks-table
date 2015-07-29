@@ -1,10 +1,38 @@
 
-.app-table {}
+.app-table {
+    font-family: Source Han Sans GB, Helvetica;
+    line-height: 2em;
+    font-size: 14px;
+}
 
 .app-task {
     display: flex;
 }
 
-.app-field {
+.app-task > div {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.control {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.control .label {
+    cursor: pointer;
+}
+
+.content, .group {
+    flex: 5;
+}
+
+.priority, .complete, .executor {
     flex: 1;
 }
+
+.create_time, .due_date, .stage {
+    flex: 2;
+}
+
