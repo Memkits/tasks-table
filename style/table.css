@@ -1,0 +1,10 @@
+
+.app-table {}
+
+.app-task {
+    display: flex;
+}
+
+.app-field {
+    flex: 1;
+}

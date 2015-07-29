@@ -9,6 +9,7 @@ var
 = exports.in $ new Pipeline
 
 var
+  Component $ React.createFactory $ require :./components/table
   div $ React.createFactory :div
 
 var pageComponent $ React.createClass $ {}
@@ -31,7 +32,8 @@ var pageComponent $ React.createClass $ {}
   :render $ \ ()
     console.log (this.state.tasks.toJS)
 
-    div null :demo
+    div ({} (:className :app-page))
+      Component $ {} (:tasks this.state.tasks)
 
 var Page $ React.createFactory pageComponent
 
