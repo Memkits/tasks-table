@@ -14,8 +14,13 @@ var
           :href :images/tasks-table.png
         link $ object (:rel :stylesheet)
           :href :style/main.css
-        script $ {} (:src :http://oss.sheetjs.com/js-xlsx/jszip.js)
-        script $ {} (:src :http://oss.sheetjs.com/js-xlsx/xlsx.js)
+        cond data.dev
+          div null
+            script $ {} (:src :node_modules/xlsx/dist/jszip.js)
+            script $ {} (:src :node_modules/xlsx/dist/xlsx.core.min.js)
+          div null
+            script $ {} (:src :http://oss.sheetjs.com/js-xlsx/jszip.js)
+            script $ {} (:src :http://oss.sheetjs.com/js-xlsx/xlsx.core.min.js)
         script $ object (:src data.vendor) (:defer true)
         script $ object (:src data.main) (:defer true)
       body null

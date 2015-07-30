@@ -20,7 +20,7 @@ var
     :onDateDelete React.PropTypes.func.isRequired
 
   :onContentChange $ \ (event)
-    this.props.onContentChange (this.props.task.get :id) event.target.value
+    this.props.onContentChange (this.props.task.get :Create_time) event.target.value
 
   :onDateKeyDown $ \ (event)
     var value event.target.value

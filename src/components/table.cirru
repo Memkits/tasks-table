@@ -40,12 +40,14 @@ var
                 :onClick onClick
               , label
       div ({} (:className :dataview) (:style dataviewStyle))
-        ... this.props.tasks
-          sortBy $ \\ (task)
-            task.get this.state.sortKey
-          map $ \\ (task index)
-            Task $ {} (:task task) (:key (task.get :id)) (:index index)
-              :onContentChange this.props.onContentChange
-              :onDateDelete this.props.onDateDelete
-          sortBy $ \ (component)
-            , component.key
+        cond (> this.props.tasks.size 0)
+          ... this.props.tasks
+            sortBy $ \\ (task)
+              task.get this.state.sortKey
+            map $ \\ (task index)
+              Task $ {} (:task task) (:key (task.get :Create_time)) (:index index)
+                :onContentChange this.props.onContentChange
+                :onDateDelete this.props.onDateDelete
+            sortBy $ \ (component)
+              , component.key
+          div ({} (:className :start)) ":Drop xlsx file to start..."

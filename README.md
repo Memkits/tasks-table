@@ -1,44 +1,12 @@
 
-Workflow based on Webpack & CirruScript
+Tasks Table
 ----
 
-Scaffold for personal projects.
+A small table for displaying tasks in `.xlsx` from Teambition.
 
-### Bash Alias
+### Development
 
-```bash
-# webpack-workflow
-export wf=/Users/chen/repo/mvc-works/webpack-workflow/
-alias workflow="
-cp $wf/gulpfile.* .;
-cp $wf/package.json .;
-cp $wf/webpack.* .;
-cp $wf/template.cirru .;
-cp $wf/.gitignore .;
-cp $wf/.npmignore .;
-cp $wf/README.md .;
-mkdir src/;
-touch src/main.cirru;
-git init;
-"
-```
-
-### Usage
-
-* Development
-
-```text
-npm i
-gulp html
-webpack-dev-server --hot
-```
-
-* Production
-
-```text
-gulp buld
-gulp rsync
-```
+https://github.com/mvc-works/webpack-workflow
 
 ### License
 

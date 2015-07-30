@@ -37,38 +37,42 @@ var pageComponent $ React.createClass $ {}
       get :data/web.json
       then $ \\ (resp)
         var allData $ Immutable.fromJS $ JSON.parse resp.response
-        this.setState $ {}
-          :tasks $ allData.map $ \ (task)
-            task.set :id (shortid.generate)
+        this.setState $ {} (:tasks allData)
 
   :listenDrop $ \ ()
     = document.body.ondrageter $ \ (event)
       return false
     = document.body.ondragover $ \ (event)
       return false
-    = document.body.ondrop $ \ (event)
+    = document.body.ondrop $ \\ (event)
       event.stopPropagation
       event.preventDefault
       var files $ Array.apply null event.dataTransfer.files
       files.forEach $ \\ (f)
         var reader $ new FileReader
         reader.readAsBinaryString f
-        = reader.onload $ \ (event)
+        = reader.onload $ \\ (event)
           var data event.target.result
-          console.log $ XLSX.read data $ {} (:type :binary)
+          var workbook $ XLSX.read data $ {} (:type :binary)
+          var keys $ Object.keys workbook.Sheets
+          keys.forEach $ \\ (key)
+            var tasks $ XLSX.utils.sheet_to_json (. workbook.Sheets key) $ {} (:raw true)
+            this.handleTasks $ Immutable.fromJS tasks
       return false
+
+  :handleTasks $ \ (tasks)
+    this.setState $ {} $ :tasks $ this.state.tasks.concat tasks
 
   :onContentChange $ \ (id text)
     this.setState $ {} $ :tasks
       this.state.tasks.map $ \ (task)
-        cond (is (task.get :id) id)
+        cond (is (task.get :Create_time) id)
           task.set :Content text
           , task
 
   :onDateDelete $ \ (date)
     this.setState $ {} $ :tasks
       this.state.tasks.filter $ \ (task)
-          ssf.format :mm/dd (task.get :Create_time)
         isnt
           ssf.format :mm/dd (task.get :Create_time)
           , date
