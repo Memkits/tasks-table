@@ -3,6 +3,7 @@ var
   React $ require :react/addons
   Immutable $ require :immutable
   ssf $ require :ssf
+  keycode $ require :keycode
 
 var
   div $ React.createFactory :div
@@ -16,9 +17,18 @@ var
     :task $ React.PropTypes.instanceOf Immutable.Map
     :index React.PropTypes.number.isRequired
     :onContentChange React.PropTypes.func.isRequired
+    :onDateDelete React.PropTypes.func.isRequired
 
   :onContentChange $ \ (event)
     this.props.onContentChange (this.props.task.get :id) event.target.value
+
+  :onDateKeyDown $ \ (event)
+    var value event.target.value
+    if (is (keycode event.keyCode) :backspace) $ do
+      event.preventDefault
+      setTimeout $ \\ ()
+        this.props.onDateDelete value
+    return undefined
 
   :render $ \ ()
     var task this.props.task
@@ -26,8 +36,10 @@ var
       :top $ * this.props.index 30
 
     div ({} (:className :app-task) (:style style))
-      div ({} (:className :create_time))
-        ssf.format :mm/dd (task.get :Create_time)
+      input $ {} (:className :create_time)
+        :value $ ssf.format :mm/dd (task.get :Create_time)
+        :onChange $ \ ()
+        :onKeyDown this.onDateKeyDown
       div ({} (:className :creator))
         task.get :Creator
       div ({} (:className :group))

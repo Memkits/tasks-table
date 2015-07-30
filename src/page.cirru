@@ -6,6 +6,8 @@ var
   qwest $ require :qwest
   Immutable $ require :immutable
   shortid $ require :shortid
+  ssf $ require  :ssf
+  keycode $ require :keycode
 
 = exports.in $ new Pipeline
 
@@ -43,12 +45,30 @@ var pageComponent $ React.createClass $ {}
           task.set :Content text
           , task
 
+  :onDateDelete $ \ (date)
+    this.setState $ {} $ :tasks
+      this.state.tasks.filter $ \ (task)
+          ssf.format :mm/dd (task.get :Create_time)
+        isnt
+          ssf.format :mm/dd (task.get :Create_time)
+          , date
+
   :render $ \ ()
 
     div ({} (:className :app-page))
       Table $ {} (:tasks this.state.tasks) (:labels this.state.labels)
         :onContentChange this.onContentChange
+        :onDateDelete this.onDateDelete
 
 var Page $ React.createFactory pageComponent
 
 React.render (Page) document.body
+
+window.addEventListener :keydown $ \ (event)
+  if
+    and
+      is (keycode event.keyCode) :backspace
+      isnt event.target.tagName :INPUT
+    do
+      event.preventDefault
+  return undefined

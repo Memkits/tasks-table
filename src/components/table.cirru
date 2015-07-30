@@ -15,15 +15,13 @@ var
     :tasks $ React.PropTypes.instanceOf Immutable.List
     :labels $ React.PropTypes.instanceOf Immutable.List
     :onContentChange React.PropTypes.func.isRequired
+    :onDateDelete React.PropTypes.func.isRequired
 
   :getInitialState $ \ ()
     {} (:sortKey :Content)
 
   :onLabelClick $ \ (label)
     this.setState $ {} (:sortKey label)
-
-  :onContentChange $ \ (id text)
-    this.props.onContentChange id text
 
   :render $ \ ()
     var dataviewStyle $ {}
@@ -47,6 +45,7 @@ var
             task.get this.state.sortKey
           map $ \\ (task index)
             Task $ {} (:task task) (:key (task.get :id)) (:index index)
-              :onContentChange this.onContentChange
+              :onContentChange this.props.onContentChange
+              :onDateDelete this.props.onDateDelete
           sortBy $ \ (component)
             , component.key
