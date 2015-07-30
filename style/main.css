@@ -4,6 +4,10 @@
 body {
   margin: 0;
   padding: 20px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 }
 
 body * {

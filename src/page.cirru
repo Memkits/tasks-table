@@ -30,6 +30,9 @@ var pageComponent $ React.createClass $ {}
   :componentDidMount $ \ ()
     exports.in.for $ \\ (store)
       this.setState $ {} (:tasks store)
+    this.listenDrop
+
+  :requestData $ \ ()
     ... qwest
       get :data/web.json
       then $ \\ (resp)
@@ -37,6 +40,23 @@ var pageComponent $ React.createClass $ {}
         this.setState $ {}
           :tasks $ allData.map $ \ (task)
             task.set :id (shortid.generate)
+
+  :listenDrop $ \ ()
+    = document.body.ondrageter $ \ (event)
+      return false
+    = document.body.ondragover $ \ (event)
+      return false
+    = document.body.ondrop $ \ (event)
+      event.stopPropagation
+      event.preventDefault
+      var files $ Array.apply null event.dataTransfer.files
+      files.forEach $ \\ (f)
+        var reader $ new FileReader
+        reader.readAsBinaryString f
+        = reader.onload $ \ (event)
+          var data event.target.result
+          console.log $ XLSX.read data $ {} (:type :binary)
+      return false
 
   :onContentChange $ \ (id text)
     this.setState $ {} $ :tasks
