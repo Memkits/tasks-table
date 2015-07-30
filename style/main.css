@@ -3,9 +3,18 @@
 
 body {
   margin: 0;
+  padding: 20px;
 }
 
 body * {
     box-sizing: border-box;
     /* box-shadow: 0 0 1px; */
+}
+
+input {
+  border: none;
+  outline: none;
+  color: #999;
+  font-size: 14px;
+  background: transparent;
 }

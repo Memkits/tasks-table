@@ -30,7 +30,10 @@
     "immutable": "^3.7.4",
     "node-xlsx": "^0.6.0",
     "qwest": "^2.0.4",
-    "react": "^0.13.3"
+    "react": "^0.13.3",
+    "shortid": "^2.2.2",
+    "ssf": "^0.8.2",
+    "xlsx": "^0.8.0"
   },
   "repository": {
     "type": "git",

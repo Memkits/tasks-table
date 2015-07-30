@@ -7,12 +7,27 @@
 
 .app-task {
     display: flex;
+    padding: 0 10px;
+    color: hsl(0, 0%, 60%);
+    position: absolute;
+    width: 100%;
+    transition-duration: 300ms;
+    height: 30px;
+    line-height: 30px;
+    transition-property: top;
+    transition-timing-function: cubic-bezier(0.6, -0.01, 0.4, 0.93);
+}
+
+.app-task:hover {
+    background: hsl(0, 0%, 94%);
+    color: black;
 }
 
 .app-task > div {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    flex: 1;
 }
 
 .control {
@@ -22,17 +37,13 @@
 
 .control .label {
     cursor: pointer;
-}
-
-.content, .group {
-    flex: 5;
-}
-
-.priority, .complete, .executor {
     flex: 1;
 }
 
-.create_time, .due_date, .stage {
-    flex: 2;
+.label.content, input.content {
+    flex: 5;
 }
 
+.dataview {
+    position: relative;
+}

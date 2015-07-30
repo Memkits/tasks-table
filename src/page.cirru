@@ -5,6 +5,7 @@ var
   Pipeline $ require :cumulo-pipeline
   qwest $ require :qwest
   Immutable $ require :immutable
+  shortid $ require :shortid
 
 = exports.in $ new Pipeline
 
@@ -18,14 +19,11 @@ var pageComponent $ React.createClass $ {}
   :getInitialState $ \ ()
     {} (:tasks schema.store)
       :labels $ Immutable.fromJS $ []
-        , :Content
-        , :Priority
-        , :Complete
         , :Create_time
-        , :Due_Date
-        , :Executor
+        , :Creator
         , :Group
         , :Stage
+        , :Content
 
   :componentDidMount $ \ ()
     exports.in.for $ \\ (store)
@@ -35,13 +33,21 @@ var pageComponent $ React.createClass $ {}
       then $ \\ (resp)
         var allData $ Immutable.fromJS $ JSON.parse resp.response
         this.setState $ {}
-          :tasks allData
+          :tasks $ allData.map $ \ (task)
+            task.set :id (shortid.generate)
+
+  :onContentChange $ \ (id text)
+    this.setState $ {} $ :tasks
+      this.state.tasks.map $ \ (task)
+        cond (is (task.get :id) id)
+          task.set :Content text
+          , task
 
   :render $ \ ()
-    console.log (this.state.tasks.toJS)
 
     div ({} (:className :app-page))
       Table $ {} (:tasks this.state.tasks) (:labels this.state.labels)
+        :onContentChange this.onContentChange
 
 var Page $ React.createFactory pageComponent
 
